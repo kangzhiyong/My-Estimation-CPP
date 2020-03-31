@@ -13,7 +13,7 @@
 using namespace std;
 
 #include "mavlink_connection.hpp"
-
+#include "my_point.hpp"
 class MyDrone
 {
 private:
@@ -90,7 +90,7 @@ private:
     float _baro_time{0.0};
     float _baro_frequency{0.0};
 
-    typedef void (MyDrone::*update)(MessageBase data);
+    typedef void (MyDrone::*update)(void *data);
     typedef void (MyDrone::*user_callback)();
     typedef map<message_ids, update> update_property_t;
     typedef map<message_ids,  vector<user_callback>> user_callback_t;
@@ -100,41 +100,42 @@ private:
     MavlinkConnection *m_conn;
 public:
     MyDrone(MavlinkConnection *conn);
-    void on_message_receive(message_ids msg_name, MessageBase msg);
-    vector<float> global_position();
+    void on_message_receive(message_ids msg_name, void *msg);
+    point3D global_position();
     time_t global_position_time();
-    void _update_global_position(MessageBase msg);
-    vector<float> global_home();
+    void _update_global_position(void *msg);
+    point3D global_home();
     time_t home_position_time();
-    void _update_global_home(MessageBase msg);
-    vector<float> local_position();
+    void _update_global_home(void *msg);
+    point3D local_position();
     time_t local_position_time();
-    void _update_local_position(MessageBase msg);
-    vector<float> local_velocity();
+    void _update_local_position(void *msg);
+    void _update_local_position(point3D p);
+    point3D local_velocity();
     time_t local_velocity_time();
-    void _update_local_velocity(MessageBase msg);
+    void _update_local_velocity(void *msg);
     bool armed();
     bool guided();
     bool connected();
     time_t state_time();
     int status();
-    void _update_state(MessageBase msg);
+    void _update_state(void *msg);
     
     // Roll, pitch, yaw euler angles in radians
-    vector<float> attitude();
+    point3D attitude();
     time_t attitude_time();
-    void _update_attitude(MessageBase msg);
-    vector<float> acceleration_raw();
+    void _update_attitude(void *msg);
+    point3D acceleration_raw();
     time_t acceleration_time();
-    void _update_acceleration_raw(MessageBase msg);
+    void _update_acceleration_raw(void *msg);
     
     // Angular velocites in radians/second
-    vector<float> gyro_raw();
+    point3D gyro_raw();
     time_t gyro_time();
-    void _update_gyro_raw(MessageBase msg);
+    void _update_gyro_raw(void *msg);
     float barometer();
     time_t barometer_time();
-    void _update_barometer(MessageBase msg);
+    void _update_barometer(void *msg);
 
     // Handling of internal messages for callbacks
     void register_callback(message_ids name, user_callback fn);

@@ -149,7 +149,7 @@ bool mavudp::recv_msg(mavlink_message_t *msg)
           if (mavlink_parse_char(MAVLINK_COMM_0, buf[i], msg, &status))
           {
               // Packet received
-              //printf("Received packet: SYS: %d, COMP: %d, LEN: %d, MSG ID: %d\n", msg.sysid, msg.compid, msg.len, msg.msgid);
+//              printf("Received packet: SYS: %d, COMP: %d, LEN: %d, MSG ID: %d\n", msg->sysid, msg->compid, msg->len, msg->msgid);
               return true;
           }
         }

@@ -46,7 +46,7 @@ shared_ptr<Flyer> mlNode;
 
 int main(int argcp, char **argv)
 {
-  PrintHelpText();
+//  PrintHelpText();
  
   // load parameters
   ParamsHandle config = SimpleConfig::GetInstance();
@@ -105,7 +105,8 @@ void LoadScenario(string scenarioFile)
   mlNode.reset();
   //if(config->Get("Mavlink.Enable",0)!=0)
   {
-    mlNode.reset(new Flyer(new MavlinkConnection("192.168.4.1:14555", true, true)));
+//    mlNode.reset(new Flyer(new MavlinkConnection("192.168.4.1:14555", true, true)));
+    mlNode.reset(new Flyer(new MavlinkConnection("127.0.0.1:14555", true, true)));
     mlNode->start();
   }
 
@@ -119,7 +120,7 @@ void ResetSimulation()
   _simCount++;
   ParamsHandle config = SimpleConfig::GetInstance();
 
-  printf("Simulation #%d (%s)\n", _simCount, _scenarioFile.c_str());
+//  printf("Simulation #%d (%s)\n", _simCount, _scenarioFile.c_str());
 
   randomNumCarry = -1;
 
@@ -189,10 +190,10 @@ void OnTimer(int)
     // temporarily here
     if (mlNode)
     {
-      mlNode->getConnection()->send(MakeMavlinkPacket_Heartbeat());
-      mlNode->getConnection()->send(MakeMavlinkPacket_Status());
-      mlNode->getConnection()->send(MakeMavlinkPacket_LocalPose(simulationTime, quads[0]->Position(), quads[0]->Velocity()));
-      mlNode->getConnection()->send(MakeMavlinkPacket_Attitude(simulationTime, quads[0]->Attitude(), quads[0]->Omega()));
+//      mlNode->getConnection()->send(MakeMavlinkPacket_Heartbeat());
+//      mlNode->getConnection()->send(MakeMavlinkPacket_Status());
+//      mlNode->getConnection()->send(MakeMavlinkPacket_LocalPose(simulationTime, quads[0]->Position(), quads[0]->Velocity()));
+//      mlNode->getConnection()->send(MakeMavlinkPacket_Attitude(simulationTime, quads[0]->Attitude(), quads[0]->Omega()));
     }
     
   }

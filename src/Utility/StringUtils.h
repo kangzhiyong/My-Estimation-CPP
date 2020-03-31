@@ -161,9 +161,4 @@ inline bool HasLetters(std::string s)
 	return false;
 }
 
-inline float norm(float x0, float y0, float z0, float x1, float y1, float z1)
-{
-    return sqrt(pow(x0 - x1, 2) + pow(y0 - y1, 2) + pow(z0 - z1, 2));
-}
-
 } // namespace SLR

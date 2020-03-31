@@ -116,11 +116,11 @@ void MavlinkConnection::dispatch_message(mavlink_message_t msg)
         uint32_t timestamp = gpi_msg.time_boot_ms / 1000.0;
         // parse out the gps position and trigger that callback
         GlobalFrameMessage gps(timestamp, float(gpi_msg.lat) / 1e7, float(gpi_msg.lon) / 1e7, float(gpi_msg.alt) / 1000);
-        notify_message_listeners(GLOBAL_POSITION, gps);
+        notify_message_listeners(GLOBAL_POSITION, &gps);
 
         // parse out the velocity and trigger that callback
         LocalFrameMessage vel(timestamp, float(gpi_msg.vx) / 100, float(gpi_msg.vy) / 100, float(gpi_msg.vz) / 100);
-        notify_message_listeners(LOCAL_VELOCITY, vel);
+        notify_message_listeners(LOCAL_VELOCITY, &vel);
     }
     // http://mavlink.org/messages/common/#HEARTBEAT
     else if (msg.msgid == MAVLINK_MSG_ID_HEARTBEAT)
@@ -138,13 +138,12 @@ void MavlinkConnection::dispatch_message(mavlink_message_t msg)
         // extract whether or not we are in offboard mode for PX4
         // (the main mode)
         uint32_t main_mode = (hrt_msg.custom_mode & 0x000F0000) >> 16;
-        printf("main_mode:%d\r\n", main_mode);
         if (main_mode == PX4_MODE_OFFBOARD)
         {
             guided_mode = true;
         }
         StateMessage state(timestamp, motors_armed, guided_mode, hrt_msg.system_status);
-        notify_message_listeners(STATE, state);
+        notify_message_listeners(STATE, &state);
     }
     // http://mavlink.org/messages/common#LOCAL_POSITION_NED
     else if (msg.msgid == MAVLINK_MSG_ID_LOCAL_POSITION_NED)
@@ -155,11 +154,11 @@ void MavlinkConnection::dispatch_message(mavlink_message_t msg)
         uint32_t timestamp = lpn_msg.time_boot_ms / 1000.0;
         // parse out the local positin and trigger that callback
         LocalFrameMessage pos(timestamp, lpn_msg.x, lpn_msg.y, lpn_msg.z);
-        notify_message_listeners(LOCAL_POSITION, pos);
+        notify_message_listeners(LOCAL_POSITION, &pos);
 
         // parse out the velocity and trigger that callback
         LocalFrameMessage vel(timestamp, lpn_msg.vx, lpn_msg.vy, lpn_msg.vz);
-        notify_message_listeners(LOCAL_VELOCITY, vel);
+        notify_message_listeners(LOCAL_VELOCITY, &vel);
     }
     // http://mavlink.org/messages/common#HOME_POSITION
     else if (msg.msgid == MAVLINK_MSG_ID_HOME_POSITION)
@@ -169,7 +168,7 @@ void MavlinkConnection::dispatch_message(mavlink_message_t msg)
 
         uint32_t timestamp = 0.0;
         GlobalFrameMessage home(timestamp, float(hp_msg.latitude) / 1e7, float(hp_msg.longitude) / 1e7, float(hp_msg.altitude) / 1000);
-        notify_message_listeners(GLOBAL_HOME, home);
+        notify_message_listeners(GLOBAL_HOME, &home);
     }
     // http://mavlink.org/messages/common/#SCALED_IMU
     else if (msg.msgid == MAVLINK_MSG_ID_SCALED_IMU)
@@ -180,10 +179,10 @@ void MavlinkConnection::dispatch_message(mavlink_message_t msg)
         uint32_t timestamp = si_msg.time_boot_ms / 1000.0;
         // break out the message into its respective messages for here
         BodyFrameMessage accel(timestamp, si_msg.xacc / 1000.0, si_msg.yacc / 1000.0, si_msg.zacc / 1000.0);  // units -> [mg]
-        notify_message_listeners(RAW_ACCELEROMETER, accel);
+        notify_message_listeners(RAW_ACCELEROMETER, &accel);
 
         BodyFrameMessage gyro(timestamp, si_msg.xgyro / 1000.0, si_msg.ygyro / 1000.0, si_msg.zgyro / 1000.0);  // units -> [millirad/sec]
-        notify_message_listeners(RAW_GYROSCOPE, gyro);
+        notify_message_listeners(RAW_GYROSCOPE, &gyro);
     }
     // http://mavlink.org/messages/common#SCALED_PRESSURE
     else if (msg.msgid == MAVLINK_MSG_ID_SCALED_PRESSURE)
@@ -193,7 +192,7 @@ void MavlinkConnection::dispatch_message(mavlink_message_t msg)
 
         uint32_t timestamp = sp_msg.time_boot_ms / 1000.0;
         BodyFrameMessage pressure(timestamp, 0, 0, sp_msg.press_abs);  // unit is [hectopascal]
-        notify_message_listeners(BAROMETER, pressure);
+        notify_message_listeners(BAROMETER, &pressure);
     }
     // http://mavlink.org/messages/common#DISTANCE_SENSOR
     else if (msg.msgid == MAVLINK_MSG_ID_DISTANCE_SENSOR)
@@ -210,7 +209,7 @@ void MavlinkConnection::dispatch_message(mavlink_message_t msg)
                                         float(ds_msg.max_distance) / 100, direction,
                                         float(ds_msg.current_distance) / 100,
                                         float(ds_msg.covariance) / 100);
-        notify_message_listeners(DISTANCE_SENSOR, meas);
+        notify_message_listeners(DISTANCE_SENSOR, &meas);
     }
     // http://mavlink.org/messages/common#ATTITUDE_QUATERNION
     else if (msg.msgid == MAVLINK_MSG_ID_ATTITUDE_QUATERNION)
@@ -222,10 +221,10 @@ void MavlinkConnection::dispatch_message(mavlink_message_t msg)
         // TODO: check if mask notifies us to ignore a field
 
         FrameMessage fm(timestamp, aq_msg.q1, aq_msg.q2, aq_msg.q3, aq_msg.q4);
-        notify_message_listeners(ATTITUDE, fm);
+        notify_message_listeners(ATTITUDE, &fm);
 
         BodyFrameMessage gyro(timestamp, aq_msg.rollspeed, aq_msg.pitchspeed, aq_msg.yawspeed);
-        notify_message_listeners(RAW_GYROSCOPE, gyro);
+        notify_message_listeners(RAW_GYROSCOPE, &gyro);
     }
     // DEBUG
     else if (msg.msgid == MAVLINK_MSG_ID_STATUSTEXT)
@@ -640,7 +639,7 @@ void MavlinkConnection::set_notify_callback(notify_message_callback fn)
     _notify_message_callback = fn;
 }
 
-void MavlinkConnection::notify_message_listeners(message_ids name, MessageBase data)
+void MavlinkConnection::notify_message_listeners(message_ids name, void *msg)
 {
-    (_drone->*_notify_message_callback)(name, data);
+    (_drone->*_notify_message_callback)(name, msg);
 }

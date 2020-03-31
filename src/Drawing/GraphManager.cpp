@@ -222,7 +222,7 @@ void GraphManager::GraphCommand(string cmd)
   }
   else
   {
-    printf("Broken graphing command: [%s]\n", cmd.c_str());
+//    printf("Broken graphing command: [%s]\n", cmd.c_str());
   }
 
   

@@ -8,6 +8,7 @@
 #ifndef mavlink_utils_hpp
 #define mavlink_utils_hpp
 
+#include "my_point.hpp"
 enum ConnectionType
 {
     /*

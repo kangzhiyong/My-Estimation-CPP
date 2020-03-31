@@ -37,10 +37,10 @@ Example:
 class MavlinkConnection
 {
 public:
-    typedef void (MyDrone::*notify_message_callback)(message_ids, MessageBase);
+    typedef void (MyDrone::*notify_message_callback)(message_ids, void *);
     MavlinkConnection(std::string destAddr, bool threaded = false, bool PX4 = false, float send_rate = 5, time_t timeout = 5);
     
-    void notify_message_listeners(message_ids name, MessageBase data);
+    void notify_message_listeners(message_ids name, void *msg);
     
     /*
      parse out the message based on the type and call

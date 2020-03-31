@@ -51,14 +51,15 @@ class StateMessage: public MessageBase
     */
 
 public:
+    StateMessage(){};
     StateMessage(int64_t time, bool armed, bool guided, int status = 0);
     bool armed();
     bool guided();
     int status();
 private:
-    bool _armed;
-    bool _guided;
-    int _status;
+    bool _armed{false};
+    bool _guided{false};
+    int _status{0};
 };
 
 

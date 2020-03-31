@@ -2,7 +2,7 @@
 #pragma once
 
 #include <algorithm>
-#include <endian.h>
+#include <arpa/inet.h>
 #include <type_traits>
 
 namespace mavlink {
@@ -13,48 +13,48 @@ namespace mavlink {
 class MsgMap {
 public:
 
-	explicit MsgMap(mavlink_message_t *p) :
-		msg(p), cmsg(p), pos(0)
-	{ }
+    explicit MsgMap(mavlink_message_t *p) :
+        msg(p), cmsg(p), pos(0)
+    { }
 
-	explicit MsgMap(mavlink_message_t &p) :
-		msg(&p), cmsg(&p), pos(0)
-	{ }
+    explicit MsgMap(mavlink_message_t &p) :
+        msg(&p), cmsg(&p), pos(0)
+    { }
 
-	explicit MsgMap(const mavlink_message_t *p) :
-		msg(nullptr), cmsg(p), pos(0)
-	{ }
+    explicit MsgMap(const mavlink_message_t *p) :
+        msg(nullptr), cmsg(p), pos(0)
+    { }
 
-	inline void reset()
-	{
-		pos = 0;
-	}
+    inline void reset()
+    {
+        pos = 0;
+    }
 
-	inline void reset(uint32_t msgid, uint8_t len)
-	{
-		assert(msg);
+    inline void reset(uint32_t msgid, uint8_t len)
+    {
+        assert(msg);
 
-		msg->msgid = msgid;	// necessary for finalize
-		msg->len = len;		// needed only for deserialization w/o finalize
-		pos = 0;
-	}
+        msg->msgid = msgid;    // necessary for finalize
+        msg->len = len;        // needed only for deserialization w/o finalize
+        pos = 0;
+    }
 
-	template<typename _T>
-	void operator<< (const _T data);
+    template<typename _T>
+    void operator<< (const _T data);
 
-	template<class _T, size_t _Size>
-	void operator<< (const std::array<_T, _Size> &data);
+    template<class _T, size_t _Size>
+    void operator<< (const std::array<_T, _Size> &data);
 
-	template<typename _T>
-	void operator>> (_T &data);
+    template<typename _T>
+    void operator>> (_T &data);
 
-	template<class _T, size_t _Size>
-	void operator>> (std::array<_T, _Size> &data);
+    template<class _T, size_t _Size>
+    void operator>> (std::array<_T, _Size> &data);
 
 private:
-	mavlink_message_t *msg;		// for serialization
-	const mavlink_message_t *cmsg;	// for deserialization
-	size_t pos;
+    mavlink_message_t *msg;        // for serialization
+    const mavlink_message_t *cmsg;    // for deserialization
+    size_t pos;
 };
 
 namespace impl {
@@ -105,19 +105,19 @@ inline uint8_t to_little_endian_internal<uint8_t>(uint8_t data)
 template<>
 inline uint16_t to_little_endian_internal<uint16_t>(uint16_t data)
 {
-    return htole16(data);
+    return ntohs(data);
 }
 
 template<>
 inline uint32_t to_little_endian_internal<uint32_t>(uint32_t data)
 {
-    return htole32(data);
+    return ntohl(data);
 }
 
 template<>
 inline uint64_t to_little_endian_internal<uint64_t>(uint64_t data)
 {
-    return htole64(data);
+    return ntohll(data);
 }
 
 template<typename _T>
@@ -147,19 +147,19 @@ inline uint8_t to_host_from_little_endian_internal<uint8_t>(uint8_t data)
 template<>
 inline uint16_t to_host_from_little_endian_internal<uint16_t>(uint16_t data)
 {
-    return le16toh(data);
+    return htons(data);
 }
 
 template<>
 inline uint32_t to_host_from_little_endian_internal<uint32_t>(uint32_t data)
 {
-    return le32toh(data);
+    return htonl(data);
 }
 
 template<>
 inline uint64_t to_host_from_little_endian_internal<uint64_t>(uint64_t data)
 {
-    return le64toh(data);
+    return htonll(data);
 }
 
 template<typename _TOutput, typename _TInput,
@@ -201,9 +201,9 @@ void mavlink::MsgMap::operator<< (const _T data)
 template<class _T, size_t _Size>
 void mavlink::MsgMap::operator<< (const std::array<_T, _Size> &data)
 {
-	for (auto &v : data) {
-		*this << v;
-	}
+    for (auto &v : data) {
+        *this << v;
+    }
 }
 
 template<typename _T>
@@ -239,7 +239,7 @@ void mavlink::MsgMap::operator>> (_T &data)
 template<class _T, size_t _Size>
 void mavlink::MsgMap::operator>> (std::array<_T, _Size> &data)
 {
-	for (auto &v : data) {
-		*this >> v;
-	}
+    for (auto &v : data) {
+        *this >> v;
+    }
 }

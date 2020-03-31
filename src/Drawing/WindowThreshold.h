@@ -28,7 +28,7 @@ public:
       }
       else
       {
-        printf("FAIL: ABS(%s) was less than %lf for %lf seconds, which was less than %lf seconds\n", _var.c_str(), _thresh, _lastTime- _lastTimeAboveThresh, _minWindow);
+//        printf("FAIL: ABS(%s) was less than %lf for %lf seconds, which was less than %lf seconds\n", _var.c_str(), _thresh, _lastTime- _lastTimeAboveThresh, _minWindow);
       }
     }
     _lastTimeAboveThresh = numeric_limits<float>::infinity();

@@ -33,8 +33,9 @@ MyDrone::MyDrone(MavlinkConnection *conn)
     }
 }
 
-void MyDrone::on_message_receive(message_ids msg_name, MessageBase msg)
+void MyDrone::on_message_receive(message_ids msg_name, void *msg1)
 {
+    MessageBase msg = *((MessageBase *)msg1);
     //Sorts incoming messages, updates the drone state variables and runs callbacks
     if (((msg.getTime() - _message_time) > 0.0))
     {
@@ -52,19 +53,15 @@ void MyDrone::on_message_receive(message_ids msg_name, MessageBase msg)
     iter = _update_property.find(msg_name);
     if(iter != _update_property.end())
     {
-        (this->*_update_property[msg_name])(msg);
+        (this->*_update_property[msg_name])(msg1);
     }
     
     notify_callbacks(msg_name);  // pass it along to these listeners
 }
 
-vector<float> MyDrone::global_position()
+point3D MyDrone::global_position()
 {
-    vector<float> gpv;
-    gpv.push_back(_longitude);
-    gpv.push_back(_latitude);
-    gpv.push_back(_altitude);
-    return gpv;
+    return {_longitude, _latitude, _altitude};
 }
 
 time_t MyDrone::global_position_time()
@@ -72,9 +69,9 @@ time_t MyDrone::global_position_time()
     return _global_position_time;
 }
 
-void MyDrone::_update_global_position(MessageBase msg)
+void MyDrone::_update_global_position(void *msg)
 {
-    GlobalFrameMessage gfm = *(GlobalFrameMessage *)&msg;
+    GlobalFrameMessage gfm = *(GlobalFrameMessage *)msg;
     _longitude = gfm.longitude();
     _latitude = gfm.latitude();
     _altitude = gfm.altitude();
@@ -85,13 +82,9 @@ void MyDrone::_update_global_position(MessageBase msg)
     _global_position_time = gfm.getTime();
 }
 
-vector<float> MyDrone::global_home()
+point3D MyDrone::global_home()
 {
-    vector<float> qhv;
-    qhv.push_back(_home_longitude);
-    qhv.push_back(_home_latitude);
-    qhv.push_back(_home_altitude);
-    return qhv;
+    return {_home_longitude, _home_latitude, _home_altitude};
 }
 
 time_t MyDrone::home_position_time()
@@ -99,9 +92,9 @@ time_t MyDrone::home_position_time()
     return _home_position_time;
 }
 
-void MyDrone::_update_global_home(MessageBase msg)
+void MyDrone::_update_global_home(void *msg)
 {
-    GlobalFrameMessage gfm = *(GlobalFrameMessage *)&msg;
+    GlobalFrameMessage gfm = *(GlobalFrameMessage *)msg;
     _home_longitude = gfm.longitude();
     _home_latitude = gfm.latitude();
     _home_altitude = gfm.altitude();
@@ -112,13 +105,9 @@ void MyDrone::_update_global_home(MessageBase msg)
     _home_position_time = gfm.getTime();
 }
 
-vector<float> MyDrone::local_position()
+point3D MyDrone::local_position()
 {
-    vector<float> lpv;
-    lpv.push_back(_north);
-    lpv.push_back(_east);
-    lpv.push_back(_down);
-    return lpv;
+    return {_north, _east, _down};
 }
 
 time_t MyDrone::local_position_time()
@@ -126,9 +115,9 @@ time_t MyDrone::local_position_time()
     return _local_position_time;
 }
 
-void MyDrone::_update_local_position(MessageBase msg)
+void MyDrone::_update_local_position(void *msg)
 {
-    LocalFrameMessage lfm = *(LocalFrameMessage *)&msg;
+    LocalFrameMessage lfm = *(LocalFrameMessage *)msg;
     _north = lfm.north();
     _east = lfm.east();
     _down = lfm.down();
@@ -139,13 +128,16 @@ void MyDrone::_update_local_position(MessageBase msg)
     _local_position_time = lfm.getTime();
 }
 
-vector<float> MyDrone::local_velocity()
+void MyDrone::_update_local_position(point3D p)
 {
-    vector<float> lvv;
-    lvv.push_back(_velocity_north);
-    lvv.push_back(_velocity_east);
-    lvv.push_back(_velocity_down);
-    return lvv;
+    _north = p[0];
+    _east = p[1];
+    _down = p[2];
+}
+
+point3D MyDrone::local_velocity()
+{
+    return {_velocity_north, _velocity_east, _velocity_down};
 }
 
 time_t MyDrone::local_velocity_time()
@@ -153,9 +145,9 @@ time_t MyDrone::local_velocity_time()
     return _local_velocity_time;
 }
 
-void MyDrone::_update_local_velocity(MessageBase msg)
+void MyDrone::_update_local_velocity(void *msg)
 {
-    LocalFrameMessage lfm = *(LocalFrameMessage *)&msg;
+    LocalFrameMessage lfm = *(LocalFrameMessage *)msg;
     _velocity_north = lfm.north();
     _velocity_east = lfm.east();
     _velocity_down = lfm.down();
@@ -194,9 +186,9 @@ int MyDrone::status()
     return _status;
 }
 
-void MyDrone::_update_state(MessageBase msg)
+void MyDrone::_update_state(void *msg)
 {
-    StateMessage sm = *(StateMessage *)&msg;
+    StateMessage sm = *((StateMessage *)msg);
     _armed = sm.armed();
     _guided = sm.guided();
     if ((sm.getTime() - _state_time) > 0.0)
@@ -208,13 +200,9 @@ void MyDrone::_update_state(MessageBase msg)
 }
 
 //Roll, pitch, yaw euler angles in radians
-vector<float> MyDrone::attitude()
+point3D MyDrone::attitude()
 {
-    vector<float> av;
-    av.push_back(_roll);
-    av.push_back(_pitch);
-    av.push_back(_yaw);
-    return av;
+    return {_roll, _pitch, _yaw};
 }
 
 time_t MyDrone::attitude_time()
@@ -222,9 +210,9 @@ time_t MyDrone::attitude_time()
     return _attitude_time;
 }
 
-void MyDrone::_update_attitude(MessageBase msg)
+void MyDrone::_update_attitude(void *msg)
 {
-    FrameMessage fm = *(FrameMessage *)&msg;
+    FrameMessage fm = *(FrameMessage *)msg;
     _roll = fm.roll();
     _pitch = fm.pitch();
     _yaw = fm.yaw();
@@ -235,13 +223,9 @@ void MyDrone::_update_attitude(MessageBase msg)
     _attitude_time = fm.getTime();
 }
 
-vector<float> MyDrone::acceleration_raw()
+point3D MyDrone::acceleration_raw()
 {
-    vector<float> arv;
-    arv.push_back(_acceleration_x);
-    arv.push_back(_acceleration_y);
-    arv.push_back(_acceleration_z);
-    return arv;
+    return {_acceleration_x, _acceleration_y, _acceleration_z};
 }
 
 time_t MyDrone::acceleration_time()
@@ -249,9 +233,9 @@ time_t MyDrone::acceleration_time()
     return _acceleration_time;
 }
 
-void MyDrone::_update_acceleration_raw(MessageBase msg)
+void MyDrone::_update_acceleration_raw(void *msg)
 {
-    BodyFrameMessage bfm = *(BodyFrameMessage *)&msg;
+    BodyFrameMessage bfm = *(BodyFrameMessage *)msg;
     _acceleration_x = bfm.x();
     _acceleration_y = bfm.y();
     _acceleration_z = bfm.z();
@@ -263,13 +247,9 @@ void MyDrone::_update_acceleration_raw(MessageBase msg)
 }
 
 //Angular velocites in radians/second
-vector<float> MyDrone::gyro_raw()
+point3D MyDrone::gyro_raw()
 {
-    vector<float> grv;
-    grv.push_back(_gyro_x);
-    grv.push_back(_gyro_y);
-    grv.push_back(_gyro_z);
-    return grv;
+    return {_gyro_x, _gyro_y, _gyro_z};
 }
 
 time_t MyDrone::gyro_time()
@@ -277,9 +257,9 @@ time_t MyDrone::gyro_time()
     return _gyro_time;
 }
 
-void MyDrone::_update_gyro_raw(MessageBase msg)
+void MyDrone::_update_gyro_raw(void *msg)
 {
-    BodyFrameMessage bfm = *(BodyFrameMessage *)&msg;
+    BodyFrameMessage bfm = *(BodyFrameMessage *)msg;
     _gyro_x = bfm.x();
     _gyro_y = bfm.y();
     _gyro_z = bfm.z();
@@ -300,9 +280,9 @@ time_t MyDrone::barometer_time()
     return _baro_time;
 }
 
-void MyDrone::_update_barometer(MessageBase msg)
+void MyDrone::_update_barometer(void *msg)
 {
-    BodyFrameMessage bfm = *(BodyFrameMessage *)&msg;
+    BodyFrameMessage bfm = *(BodyFrameMessage *)msg;
     _baro_altitude = bfm.z();
     _baro_frequency = 1.0 / (bfm.getTime() - _baro_time);
     _baro_time = bfm.getTime();

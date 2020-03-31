@@ -13,10 +13,16 @@
 		D7222FB1240CABF000FC12B7 /* my_drone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7222FA9240CABF000FC12B7 /* my_drone.cpp */; };
 		D7222FB2240CABF000FC12B7 /* mavlink_connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7222FAA240CABF000FC12B7 /* mavlink_connection.cpp */; };
 		D7222FB3240CABF000FC12B7 /* mavlink_udp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7222FAC240CABF000FC12B7 /* mavlink_udp.cpp */; };
-		DB076C8B202A34C500386052 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB076C8A202A34C500386052 /* GLUT.framework */; };
+		D76FBF4A2418E0C200B9D195 /* my_polygon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D76FBF482418E0C200B9D195 /* my_polygon.cpp */; };
+		D76FBF4D24192A1E00B9D195 /* my_sampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D76FBF4B24192A1E00B9D195 /* my_sampler.cpp */; };
+		D76FBF5024192CE800B9D195 /* my_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D76FBF4E24192CE800B9D195 /* my_data.cpp */; };
+		D76FBF532419F6C600B9D195 /* k_d_tree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D76FBF512419F6C600B9D195 /* k_d_tree.cpp */; };
+		D76FBF59241CE7BD00B9D195 /* my_point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D76FBF57241CE7BD00B9D195 /* my_point.cpp */; };
+		D76FBF5C241FC81D00B9D195 /* planning_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D76FBF5A241FC81D00B9D195 /* planning_utils.cpp */; };
+		D76FBF68242529A000B9D195 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB076C8A202A34C500386052 /* GLUT.framework */; };
+		D76FBF69242529A000B9D195 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB49FB21202A060F00DED4E6 /* OpenGL.framework */; };
 		DB47A221205151FE00F34E67 /* MavlinkTranslation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB47A21E205151FE00F34E67 /* MavlinkTranslation.cpp */; };
 		DB47A225205152DE00F34E67 /* Geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB47A224205152DE00F34E67 /* Geometry.cpp */; };
-		DB49FB22202A060F00DED4E6 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB49FB21202A060F00DED4E6 /* OpenGL.framework */; };
 		DB49FB72202A0CC700DED4E6 /* BaseController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB49FB35202A0CC600DED4E6 /* BaseController.cpp */; };
 		DB49FB73202A0CC700DED4E6 /* ColorUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB49FB3B202A0CC600DED4E6 /* ColorUtils.cpp */; };
 		DB49FB74202A0CC700DED4E6 /* DrawingFuncs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB49FB3D202A0CC600DED4E6 /* DrawingFuncs.cpp */; };
@@ -44,8 +50,8 @@
 		DB49FADC202A039100DED4E6 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			dstPath = usr/share/man/man1;
+			dstSubfolderSpec = 10;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
@@ -66,6 +72,24 @@
 		D7222FAA240CABF000FC12B7 /* mavlink_connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mavlink_connection.cpp; sourceTree = "<group>"; };
 		D7222FAB240CABF000FC12B7 /* message_types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = message_types.hpp; sourceTree = "<group>"; };
 		D7222FAC240CABF000FC12B7 /* mavlink_udp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mavlink_udp.cpp; sourceTree = "<group>"; };
+		D76FBF482418E0C200B9D195 /* my_polygon.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = my_polygon.cpp; sourceTree = "<group>"; };
+		D76FBF492418E0C200B9D195 /* my_polygon.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = my_polygon.hpp; sourceTree = "<group>"; };
+		D76FBF4B24192A1E00B9D195 /* my_sampler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = my_sampler.cpp; sourceTree = "<group>"; };
+		D76FBF4C24192A1E00B9D195 /* my_sampler.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = my_sampler.hpp; sourceTree = "<group>"; };
+		D76FBF4E24192CE800B9D195 /* my_data.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = my_data.cpp; sourceTree = "<group>"; };
+		D76FBF4F24192CE800B9D195 /* my_data.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = my_data.hpp; sourceTree = "<group>"; };
+		D76FBF512419F6C600B9D195 /* k_d_tree.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = k_d_tree.cpp; sourceTree = "<group>"; };
+		D76FBF522419F6C600B9D195 /* k_d_tree.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = k_d_tree.hpp; sourceTree = "<group>"; };
+		D76FBF57241CE7BD00B9D195 /* my_point.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = my_point.cpp; sourceTree = "<group>"; };
+		D76FBF58241CE7BD00B9D195 /* my_point.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = my_point.hpp; sourceTree = "<group>"; };
+		D76FBF5A241FC81D00B9D195 /* planning_utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = planning_utils.cpp; sourceTree = "<group>"; };
+		D76FBF5B241FC81D00B9D195 /* planning_utils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = planning_utils.hpp; sourceTree = "<group>"; };
+		D76FBF5E24209D2500B9D195 /* subgraph.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = subgraph.hxx; sourceTree = "<group>"; };
+		D76FBF5F24209D2500B9D195 /* graph.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = graph.hxx; sourceTree = "<group>"; };
+		D76FBF6124209D2500B9D195 /* graph.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = graph.hxx; sourceTree = "<group>"; };
+		D76FBF6224209D2500B9D195 /* adjacency.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = adjacency.hxx; sourceTree = "<group>"; };
+		D76FBF6324209D2500B9D195 /* random-access-set.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "random-access-set.hxx"; sourceTree = "<group>"; };
+		D76FBF6424209D2500B9D195 /* visitor.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = visitor.hxx; sourceTree = "<group>"; };
 		DB076C8A202A34C500386052 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		DB31989E20334078008ACD56 /* Simulation.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Simulation.txt; path = ../config/Simulation.txt; sourceTree = "<group>"; };
 		DB3198A320334078008ACD56 /* QuadPhysicalParams.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = QuadPhysicalParams.txt; path = ../config/QuadPhysicalParams.txt; sourceTree = "<group>"; };
@@ -160,8 +184,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB076C8B202A34C500386052 /* GLUT.framework in Frameworks */,
-				DB49FB22202A060F00DED4E6 /* OpenGL.framework in Frameworks */,
+				D76FBF68242529A000B9D195 /* GLUT.framework in Frameworks */,
+				D76FBF69242529A000B9D195 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,6 +195,8 @@
 		D7222F9F240CABF000FC12B7 /* MyDrone */ = {
 			isa = PBXGroup;
 			children = (
+				D76FBF5D24209D2500B9D195 /* graph */,
+				D76FBEC724189BB500B9D195 /* MissionPlanning */,
 				D7222FA0240CABF000FC12B7 /* mavlink_connection.hpp */,
 				D7222FA1240CABF000FC12B7 /* message_types.cpp */,
 				D7222FA2240CABF000FC12B7 /* mavlink_udp.hpp */,
@@ -186,6 +212,46 @@
 				D7222FAC240CABF000FC12B7 /* mavlink_udp.cpp */,
 			);
 			path = MyDrone;
+			sourceTree = "<group>";
+		};
+		D76FBEC724189BB500B9D195 /* MissionPlanning */ = {
+			isa = PBXGroup;
+			children = (
+				D76FBF482418E0C200B9D195 /* my_polygon.cpp */,
+				D76FBF492418E0C200B9D195 /* my_polygon.hpp */,
+				D76FBF4B24192A1E00B9D195 /* my_sampler.cpp */,
+				D76FBF4C24192A1E00B9D195 /* my_sampler.hpp */,
+				D76FBF4E24192CE800B9D195 /* my_data.cpp */,
+				D76FBF4F24192CE800B9D195 /* my_data.hpp */,
+				D76FBF512419F6C600B9D195 /* k_d_tree.cpp */,
+				D76FBF522419F6C600B9D195 /* k_d_tree.hpp */,
+				D76FBF57241CE7BD00B9D195 /* my_point.cpp */,
+				D76FBF58241CE7BD00B9D195 /* my_point.hpp */,
+				D76FBF5A241FC81D00B9D195 /* planning_utils.cpp */,
+				D76FBF5B241FC81D00B9D195 /* planning_utils.hpp */,
+			);
+			path = MissionPlanning;
+			sourceTree = "<group>";
+		};
+		D76FBF5D24209D2500B9D195 /* graph */ = {
+			isa = PBXGroup;
+			children = (
+				D76FBF5E24209D2500B9D195 /* subgraph.hxx */,
+				D76FBF5F24209D2500B9D195 /* graph.hxx */,
+				D76FBF6024209D2500B9D195 /* detail */,
+				D76FBF6224209D2500B9D195 /* adjacency.hxx */,
+				D76FBF6324209D2500B9D195 /* random-access-set.hxx */,
+				D76FBF6424209D2500B9D195 /* visitor.hxx */,
+			);
+			path = graph;
+			sourceTree = "<group>";
+		};
+		D76FBF6024209D2500B9D195 /* detail */ = {
+			isa = PBXGroup;
+			children = (
+				D76FBF6124209D2500B9D195 /* graph.hxx */,
+			);
+			path = detail;
 			sourceTree = "<group>";
 		};
 		DB31989C2033405F008ACD56 /* config */ = {
@@ -381,7 +447,7 @@
 		DB49FAD6202A039100DED4E6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = Fotokite;
 				TargetAttributes = {
 					DB49FADD202A039100DED4E6 = {
@@ -396,6 +462,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = DB49FAD5202A039100DED4E6;
 			productRefGroup = DB49FADF202A039100DED4E6 /* Products */;
@@ -414,6 +481,7 @@
 			files = (
 				DB49FB77202A0CC700DED4E6 /* GraphManager.cpp in Sources */,
 				DB49FB7E202A0CC700DED4E6 /* rangefinder.cpp in Sources */,
+				D76FBF4D24192A1E00B9D195 /* my_sampler.cpp in Sources */,
 				D7222FB3240CABF000FC12B7 /* mavlink_udp.cpp in Sources */,
 				DB49FB7F202A0CC700DED4E6 /* Simulator.cpp in Sources */,
 				D7222FAE240CABF000FC12B7 /* message_types.cpp in Sources */,
@@ -422,6 +490,7 @@
 				D7222FB1240CABF000FC12B7 /* my_drone.cpp in Sources */,
 				DB49FB74202A0CC700DED4E6 /* DrawingFuncs.cpp in Sources */,
 				DB49FB7A202A0CC700DED4E6 /* Random.cpp in Sources */,
+				D76FBF4A2418E0C200B9D195 /* my_polygon.cpp in Sources */,
 				DB49FB80202A0CC700DED4E6 /* Trajectory.cpp in Sources */,
 				DB49FB7D202A0CC700DED4E6 /* QuadDynamics.cpp in Sources */,
 				DB49FB7C202A0CC700DED4E6 /* opticalflow.cpp in Sources */,
@@ -431,12 +500,16 @@
 				D7222FAF240CABF000FC12B7 /* mavlink_utils.cpp in Sources */,
 				DB49FB78202A0CC700DED4E6 /* Visualizer_GLUT.cpp in Sources */,
 				DB49FB75202A0CC700DED4E6 /* GLUTMenu.cpp in Sources */,
+				D76FBF5C241FC81D00B9D195 /* planning_utils.cpp in Sources */,
 				DB49FB73202A0CC700DED4E6 /* ColorUtils.cpp in Sources */,
+				D76FBF59241CE7BD00B9D195 /* my_point.cpp in Sources */,
 				DB49FB82202A0CC700DED4E6 /* SimpleConfig.cpp in Sources */,
 				DB56307A20743A730070F86B /* BaseQuadEstimator.cpp in Sources */,
 				DB49FB83202A0CC700DED4E6 /* Timer.cpp in Sources */,
+				D76FBF532419F6C600B9D195 /* k_d_tree.cpp in Sources */,
 				DBD204F32036369000E0F55A /* QuadControl.cpp in Sources */,
 				DB49FB79202A0CC700DED4E6 /* main.cpp in Sources */,
+				D76FBF5024192CE800B9D195 /* my_data.cpp in Sources */,
 				D7222FB2240CABF000FC12B7 /* mavlink_connection.cpp in Sources */,
 				DB47A225205152DE00F34E67 /* Geometry.cpp in Sources */,
 				DB56307920743A730070F86B /* QuadEstimatorEKF.cpp in Sources */,
@@ -451,6 +524,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = x86_64;
+				"ARCHS[sdk=*]" = x86_64;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -501,6 +576,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -508,6 +584,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = x86_64;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -551,6 +628,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Release;
 		};
@@ -558,11 +636,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				"HEADER_SEARCH_PATHS[arch=*]" = (
-					../src,
-					../lib,
+				FRAMEWORK_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"<Multiple",
+					"values>",
+					../lib/,
+					../src/,
+					../src/MyDrone/MyDrone/Graph/,
 				);
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
@@ -577,11 +661,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				"HEADER_SEARCH_PATHS[arch=*]" = (
-					../src/,
+				FRAMEWORK_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"<Multiple",
+					"values>",
 					../lib/,
+					../src/,
+					../src/MyDrone/MyDrone/Graph/,
 				);
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
